@@ -1,3 +1,834 @@
-<html>
-<body> <p> huday </p>
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#000000">
+    <title>رَمَضَانَ مُبَارَكْ - Ramadan Mubarak 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Sans+Bengali:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+    }
+
+    :root {
+      --gold: #d4af37;
+      --light-gold: #ffd700;
+      --dark-gold: #b8942c;
+      --cream: #fef9f3;
+      --pale-gold: #f5e6d3;
+      --shadow-gold: rgba(212, 175, 55, 0.3);
+      --vh: 1vh;
+    }
+
+    html {
+      height: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      background: #000;
+      color: var(--cream);
+      font-family: 'Noto Sans Bengali', sans-serif;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+      min-height: calc(var(--vh, 1vh) * 100);
+      /* GPU acceleration */
+      -webkit-font-smoothing: antialiased;
+      transform: translateZ(0);
+    }
+
+    /* Night sky - CSS only, no JS star loop = faster */
+    .night-sky {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: radial-gradient(ellipse at 20% 10%, #0f0f2e 0%, #000 70%);
+      z-index: 0;
+      will-change: auto;
+    }
+
+    /* Stars using CSS - no DOM spam */
+    .stars {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .stars::before,
+    .stars::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-image:
+        radial-gradient(1px 1px at 10% 15%, white, transparent),
+        radial-gradient(1px 1px at 25% 35%, white, transparent),
+        radial-gradient(1.5px 1.5px at 40% 8%, white, transparent),
+        radial-gradient(1px 1px at 55% 22%, white, transparent),
+        radial-gradient(1px 1px at 70% 12%, white, transparent),
+        radial-gradient(1.5px 1.5px at 85% 30%, white, transparent),
+        radial-gradient(1px 1px at 5% 50%, white, transparent),
+        radial-gradient(1px 1px at 20% 65%, white, transparent),
+        radial-gradient(1px 1px at 35% 45%, white, transparent),
+        radial-gradient(1.5px 1.5px at 60% 55%, white, transparent),
+        radial-gradient(1px 1px at 75% 40%, white, transparent),
+        radial-gradient(1px 1px at 90% 60%, white, transparent),
+        radial-gradient(1px 1px at 15% 80%, white, transparent),
+        radial-gradient(1px 1px at 45% 75%, white, transparent),
+        radial-gradient(1.5px 1.5px at 65% 70%, white, transparent),
+        radial-gradient(1px 1px at 80% 85%, white, transparent),
+        radial-gradient(1px 1px at 30% 90%, white, transparent),
+        radial-gradient(1px 1px at 50% 5%, white, transparent),
+        radial-gradient(1px 1px at 92% 20%, white, transparent),
+        radial-gradient(1px 1px at 8% 35%, white, transparent);
+      animation: twinkle1 4s ease-in-out infinite alternate;
+    }
+
+    .stars::after {
+      background-image:
+        radial-gradient(1px 1px at 18% 5%, white, transparent),
+        radial-gradient(1px 1px at 33% 18%, white, transparent),
+        radial-gradient(1.5px 1.5px at 48% 28%, white, transparent),
+        radial-gradient(1px 1px at 62% 42%, white, transparent),
+        radial-gradient(1px 1px at 78% 52%, white, transparent),
+        radial-gradient(1px 1px at 93% 8%, white, transparent),
+        radial-gradient(1px 1px at 3% 68%, white, transparent),
+        radial-gradient(1.5px 1.5px at 22% 78%, white, transparent),
+        radial-gradient(1px 1px at 38% 58%, white, transparent),
+        radial-gradient(1px 1px at 53% 88%, white, transparent),
+        radial-gradient(1px 1px at 68% 25%, white, transparent),
+        radial-gradient(1px 1px at 83% 72%, white, transparent),
+        radial-gradient(1px 1px at 12% 95%, white, transparent),
+        radial-gradient(1px 1px at 43% 3%, white, transparent),
+        radial-gradient(1.5px 1.5px at 57% 15%, white, transparent),
+        radial-gradient(1px 1px at 72% 33%, white, transparent),
+        radial-gradient(1px 1px at 87% 45%, white, transparent),
+        radial-gradient(1px 1px at 28% 55%, white, transparent),
+        radial-gradient(1px 1px at 95% 75%, white, transparent),
+        radial-gradient(1px 1px at 6% 82%, white, transparent);
+      animation: twinkle1 5s ease-in-out infinite alternate-reverse;
+    }
+
+    @keyframes twinkle1 {
+      0% { opacity: 0.3; }
+      100% { opacity: 0.9; }
+    }
+
+    /* Moon - fixed top right, mobile sized */
+    .moon-container {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      z-index: 2;
+      animation: float 6s ease-in-out infinite;
+      will-change: transform;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .moon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+      border-radius: 50%;
+      box-shadow:
+        0 0 30px rgba(255, 215, 0, 0.9),
+        0 0 60px rgba(255, 215, 0, 0.5),
+        0 0 100px rgba(255, 215, 0, 0.3),
+        inset -12px 0 20px rgba(0,0,0,0.2);
+      animation: moonGlow 3s ease-in-out infinite;
+      will-change: box-shadow;
+    }
+
+    @keyframes moonGlow {
+      0%, 100% { box-shadow: 0 0 30px rgba(255,215,0,0.9), 0 0 60px rgba(255,215,0,0.5), 0 0 100px rgba(255,215,0,0.3), inset -12px 0 20px rgba(0,0,0,0.2); }
+      50% { box-shadow: 0 0 50px rgba(255,215,0,1), 0 0 90px rgba(255,215,0,0.7), 0 0 140px rgba(255,215,0,0.5), inset -12px 0 20px rgba(0,0,0,0.2); }
+    }
+
+    /* Main scroll container */
+    .container {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 40px 16px 40px;
+      padding-top: env(safe-area-inset-top, 40px);
+      padding-bottom: env(safe-area-inset-bottom, 40px);
+    }
+
+    /* Hero */
+    .hero-section {
+      text-align: center;
+      padding: 20px 0 30px;
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .main-title {
+      font-family: 'Amiri', serif;
+      font-size: clamp(2.8rem, 12vw, 4rem);
+      font-weight: 700;
+      background: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #d4af37 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.3;
+      padding: 10px 0;
+    }
+
+    .subtitle {
+      font-size: clamp(1.1rem, 5vw, 1.4rem);
+      color: var(--pale-gold);
+      font-weight: 300;
+      margin: 8px 0 4px;
+      letter-spacing: 0.08em;
+    }
+
+    .from-text {
+      font-size: clamp(1rem, 4vw, 1.2rem);
+      color: var(--gold);
+      font-weight: 600;
+      margin-top: 12px;
+    }
+
+    /* Mosque SVG - lightweight, no DOM heavy approach */
+    .mosque-wrap {
+      width: 100%;
+      max-width: 360px;
+      margin: 20px auto 30px;
+      animation: fadeInUp 1s 0.2s ease both;
+    }
+
+    .mosque-wrap svg {
+      width: 100%;
+      height: auto;
+      filter: drop-shadow(0 0 20px rgba(212,175,55,0.5));
+    }
+
+    /* Lanterns row */
+    .lanterns {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin: 10px 0 20px;
+      animation: fadeInUp 1s 0.3s ease both;
+    }
+
+    .lantern {
+      width: 28px;
+      height: 44px;
+      background: linear-gradient(135deg, #ffd700, #d4af37);
+      border-radius: 6px;
+      position: relative;
+      box-shadow: 0 0 18px rgba(255,215,0,0.7);
+      animation: swing 3s ease-in-out infinite;
+      transform-origin: top center;
+      will-change: transform;
+    }
+
+    .lantern:nth-child(2) { animation-delay: -0.8s; }
+    .lantern:nth-child(3) { animation-delay: -1.6s; }
+    .lantern:nth-child(4) { animation-delay: -0.4s; }
+    .lantern:nth-child(5) { animation-delay: -1.2s; }
+
+    @keyframes swing {
+      0%, 100% { transform: rotate(-6deg); }
+      50% { transform: rotate(6deg); }
+    }
+
+    .lantern::before {
+      content: '';
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 16px;
+      background: var(--gold);
+    }
+
+    .lantern::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 16px; height: 16px;
+      background: rgba(255,255,255,0.5);
+      border-radius: 50%;
+      filter: blur(5px);
+      animation: glow 2s ease-in-out infinite;
+    }
+
+    @keyframes glow {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    /* Cards */
+    .card {
+      background: linear-gradient(135deg,
+        rgba(212,175,55,0.08) 0%,
+        rgba(10,10,10,0.92) 100%);
+      border: 1.5px solid rgba(212,175,55,0.35);
+      border-radius: 18px;
+      padding: 28px 20px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 0 30px rgba(212,175,55,0.12);
+      animation: fadeInUp 0.8s ease both;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 60%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,215,0,0.06), transparent);
+      animation: shimmer 4s infinite;
+    }
+
+    @keyframes shimmer {
+      to { left: 160%; }
+    }
+
+    .card:nth-child(1) { animation-delay: 0.3s; }
+    .card:nth-child(2) { animation-delay: 0.5s; }
+    .card:nth-child(3) { animation-delay: 0.7s; }
+
+    .card-title {
+      font-size: clamp(1rem, 4.5vw, 1.25rem);
+      color: var(--gold);
+      text-align: center;
+      margin-bottom: 16px;
+      font-weight: 600;
+    }
+
+    .card-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 10px auto 0;
+    }
+
+    .message-text {
+      font-size: clamp(0.9rem, 3.5vw, 1rem);
+      line-height: 1.9;
+      color: var(--pale-gold);
+      text-align: center;
+      margin-bottom: 16px;
+      font-weight: 300;
+    }
+
+    .blessing-text {
+      font-size: clamp(0.85rem, 3.2vw, 0.95rem);
+      line-height: 1.85;
+      color: rgba(245,230,211,0.88);
+      text-align: center;
+      font-style: italic;
+      padding: 16px;
+      background: rgba(212,175,55,0.05);
+      border-left: 3px solid var(--gold);
+      border-radius: 6px;
+    }
+
+    /* Buttons */
+    .btn-gold {
+      display: block;
+      width: 100%;
+      padding: 18px 20px;
+      font-family: 'Noto Sans Bengali', sans-serif;
+      font-size: clamp(1rem, 4vw, 1.15rem);
+      font-weight: 700;
+      color: #000;
+      background: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ffd700 100%);
+      border: 2.5px solid var(--light-gold);
+      border-radius: 50px;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      box-shadow: 0 8px 28px rgba(255,215,0,0.35);
+      text-align: center;
+      -webkit-appearance: none;
+      appearance: none;
+      touch-action: manipulation;
+    }
+
+    .btn-gold:active {
+      transform: scale(0.97);
+      box-shadow: 0 4px 16px rgba(255,215,0,0.3);
+    }
+
+    .question-text {
+      font-size: clamp(0.95rem, 3.8vw, 1.1rem);
+      color: var(--cream);
+      line-height: 1.8;
+      text-align: center;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    /* Form */
+    .form-label {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--pale-gold);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 500;
+    }
+
+    .form-group { margin-bottom: 18px; }
+
+    .form-input,
+    .form-textarea {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 1rem;
+      font-family: 'Noto Sans Bengali', sans-serif;
+      background: rgba(10,10,10,0.7);
+      border: 1.5px solid rgba(212,175,55,0.3);
+      border-radius: 12px;
+      color: var(--cream);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(212,175,55,0.12);
+    }
+
+    .form-textarea {
+      min-height: 110px;
+      resize: vertical;
+      line-height: 1.7;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 16px;
+      font-family: 'Noto Sans Bengali', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #000;
+      background: linear-gradient(135deg, #ffd700, #ffed4e);
+      border: 2px solid var(--light-gold);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 6px 24px rgba(255,215,0,0.35);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      touch-action: manipulation;
+      -webkit-appearance: none;
+    }
+
+    .submit-btn:active {
+      transform: scale(0.98);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Success msg */
+    .success-msg {
+      display: none;
+      background: rgba(6,78,59,0.3);
+      border: 1.5px solid #064e3b;
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-top: 14px;
+      color: #6ee7b7;
+      text-align: center;
+      font-size: 0.88rem;
+    }
+
+    .success-msg.show {
+      display: block;
+      animation: slideDown 0.4s ease;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: #111;
+      border: 1.5px solid var(--gold);
+      color: var(--gold);
+      padding: 12px 28px;
+      border-radius: 50px;
+      font-size: 0.88rem;
+      white-space: nowrap;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+      z-index: 1000;
+      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* Spinner */
+    .spinner {
+      display: none;
+      width: 18px;
+      height: 18px;
+      border: 3px solid rgba(0,0,0,0.2);
+      border-top-color: #000;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      margin: 0 auto;
+    }
+
+    .spinner.show { display: inline-block; }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 30px 0 20px;
+    }
+
+    .footer-text {
+      font-size: 0.75rem;
+      color: rgba(245,230,211,0.35);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    /* Divider */
+    .divider {
+      width: 80px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 24px auto;
+    }
+    </style>
+</head>
+<body>
+
+<div class="night-sky"></div>
+<div class="stars"></div>
+
+<div class="moon-container">
+  <div class="moon"></div>
+</div>
+
+<div class="container">
+
+  <!-- Hero -->
+  <div class="hero-section">
+    <h1 class="main-title">رَمَضَانَ مُبَارَكْ</h1>
+    <p class="subtitle">রামাদান মোবারক</p>
+    <p class="from-text">✦ From Saidur ✦</p>
+  </div>
+
+  <!-- Mosque SVG - lightweight inline SVG -->
+  <div class="mosque-wrap">
+    <svg viewBox="0 0 360 260" xmlns="http://www.w3.org/2000/svg" fill="none">
+      <!-- Glow filter -->
+      <defs>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="3" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <linearGradient id="goldGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#ffd700"/>
+          <stop offset="100%" stop-color="#d4af37"/>
+        </linearGradient>
+        <linearGradient id="domeGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#ffd700" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#b8942c" stop-opacity="0.7"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Ground line -->
+      <line x1="20" y1="248" x2="340" y2="248" stroke="#d4af37" stroke-width="1.5" stroke-opacity="0.5"/>
+
+      <!-- Left minaret -->
+      <rect x="58" y="100" width="34" height="148" rx="17" fill="url(#goldGrad)" fill-opacity="0.25" stroke="#ffd700" stroke-width="1.5" filter="url(#glow)"/>
+      <ellipse cx="75" cy="95" rx="22" ry="12" fill="url(#goldGrad)" fill-opacity="0.5" stroke="#ffd700" stroke-width="1.5"/>
+      <text x="75" y="82" text-anchor="middle" font-size="16" fill="#ffd700" filter="url(#glow)">☪</text>
+
+      <!-- Right minaret -->
+      <rect x="268" y="100" width="34" height="148" rx="17" fill="url(#goldGrad)" fill-opacity="0.25" stroke="#ffd700" stroke-width="1.5" filter="url(#glow)"/>
+      <ellipse cx="285" cy="95" rx="22" ry="12" fill="url(#goldGrad)" fill-opacity="0.5" stroke="#ffd700" stroke-width="1.5"/>
+      <text x="285" y="82" text-anchor="middle" font-size="16" fill="#ffd700" filter="url(#glow)">☪</text>
+
+      <!-- Main body -->
+      <rect x="100" y="148" width="160" height="100" fill="url(#goldGrad)" fill-opacity="0.12" stroke="#ffd700" stroke-width="1.5"/>
+
+      <!-- Side domes -->
+      <path d="M100 148 Q115 110 130 148" fill="url(#domeGrad)" fill-opacity="0.4" stroke="#ffd700" stroke-width="1.5"/>
+      <path d="M230 148 Q245 110 260 148" fill="url(#domeGrad)" fill-opacity="0.4" stroke="#ffd700" stroke-width="1.5"/>
+
+      <!-- Main dome -->
+      <path d="M130 148 Q180 60 230 148" fill="url(#domeGrad)" fill-opacity="0.5" stroke="#ffd700" stroke-width="2" filter="url(#glow)"/>
+
+      <!-- Dome highlight -->
+      <path d="M148 148 Q180 85 212 148" fill="rgba(255,255,255,0.07)"/>
+
+      <!-- Crescent on main dome -->
+      <text x="180" y="72" text-anchor="middle" font-size="22" fill="#ffd700" filter="url(#glow)">☪</text>
+
+      <!-- 3 arches -->
+      <path d="M108 248 L108 190 Q128 165 148 190 L148 248" fill="rgba(255,215,0,0.08)" stroke="#ffd700" stroke-width="1.5"/>
+      <path d="M160 248 L160 190 Q180 160 200 190 L200 248" fill="rgba(255,215,0,0.1)" stroke="#ffd700" stroke-width="1.5"/>
+      <path d="M212 248 L212 190 Q232 165 252 190 L252 248" fill="rgba(255,215,0,0.08)" stroke="#ffd700" stroke-width="1.5"/>
+
+      <!-- Windows / details -->
+      <circle cx="180" cy="175" r="8" fill="none" stroke="#ffd700" stroke-width="1" stroke-opacity="0.5"/>
+      <circle cx="148" cy="210" r="5" fill="none" stroke="#ffd700" stroke-width="1" stroke-opacity="0.4"/>
+      <circle cx="212" cy="210" r="5" fill="none" stroke="#ffd700" stroke-width="1" stroke-opacity="0.4"/>
+
+      <!-- Stars scattered -->
+      <text x="40" y="50" font-size="10" fill="#ffd700" opacity="0.5">✦</text>
+      <text x="310" y="65" font-size="8" fill="#ffd700" opacity="0.4">✦</text>
+      <text x="20" y="130" font-size="7" fill="#ffd700" opacity="0.3">✦</text>
+      <text x="330" y="140" font-size="9" fill="#ffd700" opacity="0.35">✦</text>
+    </svg>
+  </div>
+
+  <!-- Lanterns -->
+  <div class="lanterns">
+    <div class="lantern"></div>
+    <div class="lantern"></div>
+    <div class="lantern"></div>
+    <div class="lantern"></div>
+    <div class="lantern"></div>
+  </div>
+
+  <!-- Welcome card -->
+  <div class="card">
+    <h2 class="card-title">আসসালামু আলাইকুম ওয়া রাহমাতুল্লাহ</h2>
+    <p class="message-text">
+      মাহে রমজানের পবিত্র এই মাসে আপনাকে জানাই আন্তরিক শুভেচ্ছা ও মোবারকবাদ।
+    </p>
+    <div class="blessing-text">
+      "আল্লাহ তা'আলা আমাদের সকলের রোজা, নামাজ, তেলাওয়াত ও ইবাদত কবুল করুন।
+      এই মাসের বরকত আমাদের জীবনে নিয়ে আসুক। আমীন।"
+    </div>
+  </div>
+
+  <!-- Poll button -->
+  <div class="divider"></div>
+  <button class="btn-gold" onclick="sendPollResponse(this)">
+    🌙 রামাদান মোবারক 🌙
+  </button>
+  <div id="pollSuccess" class="success-msg"></div>
+
+  <div class="divider"></div>
+
+  <!-- Question card -->
+  <div class="card">
+    <p class="question-text">
+      আমি তোমাকে দাওয়াত দিলাম।<br>
+      তুমি এই রমজানে ৩০টা রোজা করবে তো?<br>
+      আল্লাহর রহমতে সংকল্প নাও।
+    </p>
+    <button class="btn-gold" onclick="sendInshallahResponse(this)">
+      ইনশাআল্লাহ, অবশ্যই করব ✨
+    </button>
+    <div id="inshallahSuccess" class="success-msg"></div>
+  </div>
+
+  <!-- Comment form -->
+  <div class="card">
+    <h3 class="card-title">বার্তা লিখুন </h3>
+    <form id="commentForm" onsubmit="sendComment(event)">
+      <div class="form-group">
+        <label class="form-label" for="name">আপনার নাম</label>
+        <input type="text" id="name" name="name" class="form-input" placeholder="নাম লিখুন" required autocomplete="name">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="message">আপনার বার্তা</label>
+        <textarea id="message" name="message" class="form-textarea" placeholder="রমজানের  বার্তা লিখুন..." required></textarea>
+      </div>
+      <input type="hidden" id="deviceInfo" name="deviceInfo">
+      <input type="hidden" name="access_key" value="77e30847-f704-4459-b883-295bfe022e7b">
+      <input type="hidden" name="email" value="issaidur999@gmail.com">
+      <button type="submit" class="submit-btn" id="submitBtn">
+        <span id="submitText">বার্তা পাঠান</span>
+        <div class="spinner" id="spinner"></div>
+      </button>
+      <div id="commentSuccess" class="success-msg"></div>
+    </form>
+  </div>
+
+  <div class="footer">
+    <p class="footer-text">Ramadan Kareem 2026 <code>Saidur</code> • رَمَضَانَ كَرِيمْ</p>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  // Fix vh for Android browsers (address bar issue)
+  function setVH() {
+    document.documentElement.style.setProperty('--vh', window.innerHeight * 0.01 + 'px');
+  }
+  setVH();
+  window.addEventListener('resize', setVH, { passive: true });
+
+  function getDeviceInfo() {
+    const ua = navigator.userAgent;
+    let device = 'Unknown';
+    if (/iPhone/i.test(ua)) device = 'iPhone';
+    else if (/iPad/i.test(ua)) device = 'iPad';
+    else if (/Android/i.test(ua)) {
+      const m = ua.match(/Android\s([0-9.]*)/);
+      const d = ua.match(/; ([^;]*) Build/);
+      device = 'Android' + (m ? ' ' + m[1] : '') + (d ? ' - ' + d[1] : '');
+    } else if (/Windows/i.test(ua)) device = 'Windows';
+    else if (/Mac/i.test(ua)) device = 'Mac';
+
+    let br = 'Unknown';
+    if (/Chrome/i.test(ua) && !/Edge/i.test(ua)) br = 'Chrome';
+    else if (/Safari/i.test(ua) && !/Chrome/i.test(ua)) br = 'Safari';
+    else if (/Firefox/i.test(ua)) br = 'Firefox';
+    else if (/Edge/i.test(ua)) br = 'Edge';
+
+    return `${device} - ${br}`;
+  }
+
+  let toastTimer;
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  async function submitForm(data) {
+    const fd = new FormData();
+    Object.entries(data).forEach(([k, v]) => fd.append(k, v));
+    const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: fd });
+    return res.json();
+  }
+
+  async function sendPollResponse(btn) {
+    btn.disabled = true;
+    try {
+      const d = await submitForm({
+        access_key: '77e30847-f704-4459-b883-295bfe022e7b',
+        email: 'issaidur999@gmail.com',
+        subject: 'রামাদান মোবারক পোল রেসপন্স 🌙',
+        message: 'কেউ "🌙 রামাদান মোবারক 🌙" বাটনে ক্লিক করেছে।',
+        device_info: getDeviceInfo()
+      });
+      if (d.success) {
+        const s = document.getElementById('pollSuccess');
+        s.textContent = '✓ জাযাকাল্লাহ খায়ের! রেসপন্স পাঠানো হয়েছে';
+        s.classList.add('show');
+        showToast('✓ সফলভাবে পাঠানো হয়েছে');
+        setTimeout(() => s.classList.remove('show'), 4000);
+      }
+    } catch (e) { showToast('✗ সমস্যা হয়েছে'); }
+    finally { btn.disabled = false; }
+  }
+
+  async function sendInshallahResponse(btn) {
+    btn.disabled = true;
+    try {
+      const d = await submitForm({
+        access_key: '77e30847-f704-4459-b883-295bfe022e7b',
+        email: 'issaidur999@gmail.com',
+        subject: 'ইনশাআল্লাহ - ৩০ রোজার সংকল্প ✨',
+        message: 'কেউ "ইনশাআল্লাহ, অবশ্যই করব" বাটনে ক্লিক করেছে।',
+        device_info: getDeviceInfo()
+      });
+      if (d.success) {
+        const s = document.getElementById('inshallahSuccess');
+        s.textContent = '✓ মাশাআল্লাহ! আল্লাহ সকল রোজা কবুল করুন। আমীন।';
+        s.classList.add('show');
+        showToast('✓ আল্লাহ কবুল করুন');
+        setTimeout(() => s.classList.remove('show'), 5000);
+      }
+    } catch (e) { showToast('✗ সমস্যা হয়েছে'); }
+    finally { btn.disabled = false; }
+  }
+
+  async function sendComment(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    const txt = document.getElementById('submitText');
+    const spin = document.getElementById('spinner');
+    const suc = document.getElementById('commentSuccess');
+    document.getElementById('deviceInfo').value = getDeviceInfo();
+
+    btn.disabled = true;
+    txt.style.display = 'none';
+    spin.classList.add('show');
+
+    const form = document.getElementById('commentForm');
+    const fd = new FormData(form);
+    fd.append('subject', `রমজান শুভেচ্ছা - ${fd.get('name')}`);
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: fd });
+      const d = await res.json();
+      if (d.success) {
+        suc.style.borderColor = '';
+        suc.style.color = '';
+        suc.textContent = '✓ জাযাকাল্লাহ খায়ের! বার্তা পাঠানো হয়েছে।';
+        suc.classList.add('show');
+        showToast('✓ বার্তা সফলভাবে পাঠানো হয়েছে');
+        form.reset();
+        setTimeout(() => suc.classList.remove('show'), 4000);
+      } else {
+        suc.style.borderColor = '#dc2626';
+        suc.style.color = '#fca5a5';
+        suc.textContent = '✗ সমস্যা হয়েছে। আবার চেষ্টা করুন।';
+        suc.classList.add('show');
+      }
+    } catch {
+      suc.textContent = '✗ সমস্যা হয়েছে';
+      suc.classList.add('show');
+    } finally {
+      btn.disabled = false;
+      txt.style.display = '';
+      spin.classList.remove('show');
+    }
+  }
+</script>
+</body>
 </html>
